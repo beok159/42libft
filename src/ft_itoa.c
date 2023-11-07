@@ -27,25 +27,6 @@ static size_t	ft_nbrlen(int n)
 	return (i);
 }
 
-static void	*ft_allocate(size_t count, size_t size)
-{
-	void	*p;
-	size_t	i;
-
-	if (size != 0 && count != 0 && (count > (429567294) / size))
-		return (NULL);
-	p = malloc(count * size);
-	if (p == NULL)
-		return (NULL);
-	i = count * size;
-	while (i > 0)
-	{
-		*(char *)(p + (i - 1)) = '\0';
-		i--;
-	}
-	return (p);
-}
-
 char	*ft_itoa(int n)
 {
 	size_t	len;
@@ -56,7 +37,7 @@ char	*ft_itoa(int n)
 	i = 0;
 	nl = n;
 	len = ft_nbrlen(n);
-	str = (char *)ft_allocate(len + 1, sizeof(char));
+	str = (char *)ft_calloc(len + 1, sizeof(char));
 	if (str == NULL)
 		return (str);
 	if (nl < 0)
