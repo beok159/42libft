@@ -23,9 +23,9 @@ SRC = $(addprefix $(SRC_DIR)/, $(FILE))
 OBJ = $(addprefix $(OBJ_DIR)/, $(FILE:%.c=%.o))
 OBJB = $(addprefix $(OBJ_DIR)/, $(BFILE:%.c=%.o))
 
-.PHONY: clean fclean re bonus
+.PHONY: all bonus clean fclean re 
 
-all: $(OBJ_DIR) $(NAME)
+all: $(OBJ_DIR) $(NAME) 
 
 $(NAME): $(OBJ)
 	ar -rc $@ $^
@@ -36,11 +36,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-bonus: $(OBJ) $(OBJB)
-	ar -rc $(NAME) $^
+bonus: $(OBJ_DIR) $(OBJB) $(OBJ)
+	ar -rc $(NAME) $(OBJ) $(OBJB) 
 
 clean:
-	rm -rf $(OBJ) $(OBJB) $(OBJ_DIR)
+	rm -rf $(OBJ_DIR) 
 
 fclean:	clean
 	rm -f $(NAME)
