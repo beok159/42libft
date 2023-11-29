@@ -14,39 +14,44 @@
 
 static size_t	ft_nbrlen(int n)
 {
-	size_t	i;
+	long	nbr;
+	size_t	len;
 
-	i = 0;
-	if (n <= 0)
-		i = 1;
-	while (n != 0)
+	len = 0;
+	nbr = (long)n;
+	if (nbr == 0)
+		len = 1;
+	if (nbr < 0)
 	{
-		n /= 10;
-		i++;
+		nbr *= -1;
+		len += 1;
 	}
-	return (i);
+	while (nbr > 0)
+	{
+		nbr /= 10;
+		len++;
+	}
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
 	size_t	len;
-	int		i;
 	char	*str;
 	long	nl;
 
-	i = 0;
-	nl = n;
+	nl = (long)n;
 	len = ft_nbrlen(n);
 	str = (char *)ft_calloc(len + 1, sizeof(char));
 	if (str == NULL)
 		return (str);
 	if (nl < 0)
 	{
-		*(str + i) = '-';
+		*(str + 0) = '-';
 		nl = nl * -1;
 	}
 	if (nl == 0)
-		*(str + i) = '0';
+		*(str + 0) = '0';
 	while (nl > 0 && len > 0)
 	{
 		*(str + (len - 1)) = (nl % 10) + '0';
